@@ -100,8 +100,8 @@ function WebGPULesson() {
         animationId = requestAnimationFrame(animate)
         
         if (meshRef.current) {
-          meshRef.current.rotation.x += 0.005 * rotationSpeed
-          meshRef.current.rotation.y += 0.01 * rotationSpeed
+          meshRef.current.rotation.x += 0.005 * rotationSpeedRef.current
+          meshRef.current.rotation.y += 0.01 * rotationSpeedRef.current
           
           const wireframe = scene.getObjectByName('wireframe')
           if (wireframe) {
@@ -141,6 +141,11 @@ function WebGPULesson() {
       meshRef.current.material.color.set(color)
     }
   }, [color])
+
+  // Sync rotationSpeed state to ref for animation loop
+  useEffect(() => {
+    rotationSpeedRef.current = rotationSpeed
+  }, [rotationSpeed])
   
   const codeSnippet = `// WebGPU - The Next Generation Graphics API
 // Note: Browser support is still limited

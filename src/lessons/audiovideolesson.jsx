@@ -164,6 +164,14 @@ function AudioVideoLesson() {
       particlesRef.current.material.needsUpdate = true
     }
   }, [particleSize])
+
+  // Listen for particleSize changes and update particle size
+  useEffect(() => {
+    if (particlesRef.current) {
+      particlesRef.current.material.size = particleSize
+      particlesRef.current.material.needsUpdate = true
+    }
+  }, [particleSize])
   
   const handleEnableAudio = async () => {
     if (!audioEnabled) {

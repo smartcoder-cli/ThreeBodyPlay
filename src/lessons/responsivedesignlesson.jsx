@@ -20,6 +20,12 @@ function ResponsiveDesignLesson() {
     script.async = true
     
     script.onload = () => {
+      // Load OrbitControls after Three.js is loaded
+      const controlsScript = document.createElement('script')
+      controlsScript.src = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js'
+      controlsScript.async = true
+      
+      controlsScript.onload = () => {
       if (!mounted || !containerRef.current) return
       
       const THREE = window.THREE
@@ -74,7 +80,7 @@ function ResponsiveDesignLesson() {
       }
       
       // Floor grid
-      const gridHelper = new THREE.GridHelper(10, 10, 0x333333, 0x222222)
+      const gridHelper = new THREE.GridHelper(30, 30, 0x333333, 0x222222)
       gridHelper.name = 'grid'
       gridHelper.visible = showGrid
       scene.add(gridHelper)
