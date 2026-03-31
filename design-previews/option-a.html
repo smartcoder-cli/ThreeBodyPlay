@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>方案A - 难度渐变</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; min-height: 100vh; padding: 40px; }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 280px);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #4ecdc4, #44a08d);
+    transition: width 0.3s;
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(78,205,196,0.15); }
+  .card:hover::before { width: 6px; box-shadow: 0 0 15px rgba(78,205,196,0.5); }
+  
+  .card.intermediate::before { background: linear-gradient(180deg, #4a90d9, #357abd); }
+  .card.intermediate:hover::before { box-shadow: 0 0 15px rgba(74,144,217,0.5); }
+  
+  .card.advanced::before { background: linear-gradient(180deg, #f39c12, #e67e22); }
+  .card.advanced:hover::before { box-shadow: 0 0 15px rgba(243,156,18,0.5); }
+  
+  .card.expert::before { background: linear-gradient(180deg, #e74c3c, #c0392b); }
+  .card.expert:hover::before { box-shadow: 0 0 15px rgba(231,76,60,0.5); }
+  
+  .card.project::before { background: linear-gradient(180deg, #f1c40f, #f39c12); }
+  .card.project:hover::before { box-shadow: 0 0 15px rgba(241,196,15,0.5); }
+  
+  .lesson-number { font-size: 0.8rem; margin-bottom: 5px; color: rgba(255,255,255,0.5); }
+  .lesson-title { font-size: 1.2rem; margin-bottom: 8px; color: #fff; }
+  .lesson-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+  
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .tag { padding: 3px 10px; border-radius: 10px; font-size: 0.7rem; }
+  .tag.basic { background: rgba(78,205,196,0.2); color: #4ecdc4; }
+  .tag.intermediate { background: rgba(74,144,217,0.2); color: #4a90d9; }
+  .tag.advanced { background: rgba(243,156,18,0.2); color: #f39c12; }
+  .tag.expert { background: rgba(231,76,60,0.2); color: #e74c3c; }
+  .tag.project { background: rgba(241,196,15,0.2); color: #f1c40f; }
+  
+  .link { color: #4ecdc4; font-size: 0.85rem; text-decoration: none; }
+  
+  h1 { text-align: center; color: #fff; font-size: 2rem; margin-bottom: 40px; }
+  h1 span { color: #4ecdc4; }
+</style>
+</head>
+<body>
+  <h1>🎓 <span>ThreeBodyPlay</span> - 难度渐变卡片</h1>
+  <div class="grid">
+    <div class="card basic">
+      <div class="lesson-number">第 1 课</div>
+      <h3 class="lesson-title">Basic Scene</h3>
+      <p class="lesson-desc">创建你的第一个 Three.js 场景</p>
+      <div class="tags">
+        <span class="tag basic">Basic</span>
+        <span class="tag">Getting Started</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+    <div class="card intermediate">
+      <div class="lesson-number">第 5 课</div>
+      <h3 class="lesson-title">Animation</h3>
+      <p class="lesson-desc">学习动画基础知识</p>
+      <div class="tags">
+        <span class="tag intermediate">Intermediate</span>
+        <span class="tag">Animation</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+    <div class="card advanced">
+      <div class="lesson-number">第 9 课</div>
+      <h3 class="lesson-title">Post Processing</h3>
+      <p class="lesson-desc">视觉特效与后处理</p>
+      <div class="tags">
+        <span class="tag advanced">Advanced</span>
+        <span class="tag">Effects</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+    <div class="card expert">
+      <div class="lesson-number">第 13 课</div>
+      <h3 class="lesson-title">Shaders</h3>
+      <p class="lesson-desc">自定义着色器编程</p>
+      <div class="tags">
+        <span class="tag expert">Expert</span>
+        <span class="tag">Shaders</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+    <div class="card project">
+      <div class="lesson-number">第 18 课</div>
+      <h3 class="lesson-title">Final Project</h3>
+      <p class="lesson-desc">构建一个完整的 3D 应用</p>
+      <div class="tags">
+        <span class="tag project">Project</span>
+        <span class="tag">Final</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+  </div>
+</body>
+</html>

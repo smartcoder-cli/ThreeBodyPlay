@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>方案B - 毛玻璃 3D</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    font-family: 'Segoe UI', sans-serif; 
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh; padding: 40px; 
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 260px);
+    gap: 24px;
+    max-width: 860px;
+    margin: 0 auto;
+    perspective: 1000px;
+  }
+  
+  .card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    transform-style: preserve-3d;
+  }
+  .card:hover {
+    transform: rotateY(-8deg) rotateX(5deg) translateY(-10px);
+    box-shadow: 
+      20px 20px 60px rgba(0,0,0,0.4),
+      0 0 30px rgba(78,205,196,0.15);
+    border-color: rgba(78,205,196,0.3);
+  }
+  
+  .lesson-number { font-size: 0.75rem; margin-bottom: 8px; color: rgba(255,255,255,0.4); font-weight: 600; }
+  .lesson-title { font-size: 1.15rem; margin-bottom: 10px; color: #fff; font-weight: 600; }
+  .lesson-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); margin-bottom: 16px; line-height: 1.5; }
+  
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tag { 
+    padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; 
+    background: rgba(78,205,196,0.15); 
+    color: #4ecdc4; 
+    border: 1px solid rgba(78,205,196,0.3);
+  }
+  
+  .link { 
+    color: #4ecdc4; font-size: 0.85rem; text-decoration: none; 
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: gap 0.3s;
+  }
+  .card:hover .link { gap: 12px; }
+  
+  h1 { text-align: center; color: #fff; font-size: 2rem; margin-bottom: 40px; }
+  h1 span { color: #4ecdc4; }
+</style>
+</head>
+<body>
+  <h1>✨ <span>ThreeBodyPlay</span> - 毛玻璃 3D 悬浮</h1>
+  <div class="grid">
+    <div class="card">
+      <div class="lesson-number">LESSON 01</div>
+      <h3 class="lesson-title">Basic Scene</h3>
+      <p class="lesson-desc">创建你的第一个 Three.js 场景</p>
+      <div class="tags">
+        <span class="tag">Basic</span>
+        <span class="tag">Getting Started</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+    <div class="card">
+      <div class="lesson-number">LESSON 05</div>
+      <h3 class="lesson-title">Animation</h3>
+      <p class="lesson-desc">学习动画基础知识</p>
+      <div class="tags">
+        <span class="tag">Intermediate</span>
+        <span class="tag">Animation</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+    <div class="card">
+      <div class="lesson-number">LESSON 13</div>
+      <h3 class="lesson-title">Shaders</h3>
+      <p class="lesson-desc">自定义着色器编程</p>
+      <div class="tags">
+        <span class="tag">Expert</span>
+        <span class="tag">Shaders</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+    <div class="card">
+      <div class="lesson-number">LESSON 18</div>
+      <h3 class="lesson-title">Final Project</h3>
+      <p class="lesson-desc">构建一个完整的 3D 应用</p>
+      <div class="tags">
+        <span class="tag">Project</span>
+        <span class="tag">Final</span>
+      </div>
+      <a class="link" href="#">开始学习 →</a>
+    </div>
+  </div>
+</body>
+</html>
