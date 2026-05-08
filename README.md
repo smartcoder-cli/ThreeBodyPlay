@@ -1,62 +1,48 @@
 # ThreeBodyPlay 🚀
 
-一个全新的 Three.js 学习平台，通过渐进式交互示例系统性地掌握 WebGL 3D 渲染。
+ThreeBodyPlay is a systematic, interactive learning platform designed to master **Three.js** through 21 progressive lessons. From basic scene setups to advanced WebGPU features, it provides a hands-on approach to 3D web development.
 
-## 🎯 项目目标
-通过一系列渐进式的交互式示例，系统性地体验 Three.js 的核心能力。
+## 🎯 Project Goals
+- **Systematic Learning:** A curated path from beginner to advanced topics.
+- **Interactive Experience:** Real-time feedback and control for every 3D concept.
+- **Modern Tech Stack:** Built with React 19 and Vite for a lightning-fast development experience.
 
-## 📋 计划内容
+## 🛠️ Tech Stack
+- **Framework:** React 19
+- **3D Engine:** Three.js (^0.184.0)
+- **Build Tool:** Vite 5
+- **Testing:** Playwright
 
-### 基础部分
-- 场景、相机、渲染器
-- 几何体创建（立方体、球体、圆柱体等）
-- 材质与贴图
-- 光照与阴影
+## 📋 Curriculum Highlights
+1.  **Phase 1: Building Blocks** (Scene, Geometry, Materials, Lighting)
+2.  **Phase 2: Motion & Interactivity** (Animations, OrbitControls, Scene Graph, Raycaster)
+3.  **Phase 3: Visual Fidelity** (PBR, Skybox, Fog)
+4.  **Phase 4: Complex Systems** (BufferGeometry, GLTF Loading, Physics)
+5.  **Phase 5: Future Tech** (Post-processing, Shaders, Instancing, WebXR, WebGPU)
 
-### 进阶部分
-- 动画与交互
-- 粒子系统
-- 物理引擎
-- 后期处理效果
-- 导入外部 3D 模型
+## 🚀 Getting Started
 
-### 高级主题
-- 自定义着色器
-- VR/AR 支持
-- 性能优化
-- WebGPU 对比
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
 
-## 🏗️ 项目结构
-```
-ThreeBodyPlay/
-├── src/
-│   ├── components/     # 可复用组件
-│   ├── lessons/        # 课程内容
-│   └── shared/         # 共享配置
-├── public/
-│   └── index.html      # 单页面入口
-├── vite.config.js      # 构建配置
-└── package.json
+### Installation
+```bash
+git clone https://github.com/YOUR_USERNAME/ThreeBodyPlay.git
+cd ThreeBodyPlay
+npm install
 ```
 
-## 🚀 技术栈选择
+### Development
+```bash
+npm run dev
+```
 
-### 选项A：Vite + React (推荐)
-- **优点**：组件化彻底，生态成熟
-- **缺点**：学习曲线稍高
+### Testing
+```bash
+# Run automated lesson audits
+run-tests.bat
+```
 
-### 选项B：Vite + Vanilla JS
-- **优点**：轻量，直接控制 Three.js
-- **缺点**：组件管理需要自制
-
-### 选项C：Next.js + React
-- **优点**：SSR 能力，SEO友好
-- **缺点**：稍重
-
-**你的偏好**？我建议 **选项A**（Vite + React）平衡了能力与易用性。
-
----
-
-## 🛠️ 第一步：确定架构
-
-告诉我你的选择，或者有其他想法？
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

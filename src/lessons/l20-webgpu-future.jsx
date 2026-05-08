@@ -19,9 +19,9 @@ function WebGPULesson() {
       meshRef.current = mesh;
       scene.add(mesh);
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-      const p1 = new THREE.PointLight(0x4ecdc4, 2, 15); p1.position.set(3, 3, 3); scene.add(p1);
-      const p2 = new THREE.PointLight(0xff6b6b, 1.5, 15); p2.position.set(-3, -3, 3); scene.add(p2);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+      const p1 = new THREE.PointLight(0x4ecdc4, 40, 15); p1.position.set(3, 3, 3); scene.add(p1);
+      const p2 = new THREE.PointLight(0xff6b6b, 30, 15); p2.position.set(-3, -3, 3); scene.add(p2);
     },
     onAnimate: () => {
       if (meshRef.current) {
@@ -35,11 +35,33 @@ function WebGPULesson() {
     if (meshRef.current) meshRef.current.material.color.set(color);
   }, [color]);
 
+  const codeSnippet = `// 1. WebGPU Initialization (Theoretical)
+// Note: Three.js WebGPURenderer is currently in development (JSM)
+
+/* 
+import WebGPURenderer from 'three/examples/jsm/renderers/webgpu/WebGPURenderer.js';
+
+const renderer = new WebGPURenderer({ 
+  canvas: myCanvas,
+  antialias: true 
+});
+await renderer.init();
+*/
+
+// 2. TSL (Three Shading Language)
+// WebGPU uses TSL for cross-platform shading
+// mesh.material = new MeshStandardNodeMaterial({ ... });
+
+// 3. Current State
+// Most Three.js features are being ported to support
+// both WebGL and WebGPU seamlessly.`;
+
   return (
     <LessonLayout
       containerRef={containerRef}
       canvasRef={canvasRef}
       isReady={isReady}
+      codeSnippet={codeSnippet}
       sidebar={
         <>
           <ControlPanel title="Visuals">

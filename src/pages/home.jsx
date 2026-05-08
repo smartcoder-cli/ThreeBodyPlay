@@ -2,29 +2,31 @@ import React from 'react'
 import LessonCard from '../components/lessoncard'
 
 const lessons = [
-  { number: 1, title: 'Basic Scene', description: 'Create your first Three.js scene', path: '#lesson-01', tags: ['Basic', 'Getting Started'] },
-  { number: 2, title: 'Geometries', description: 'Create various 3D shapes', path: '#lesson-02', tags: ['Basic', 'Geometry'] },
-  { number: 3, title: 'Materials', description: 'Explore different material types', path: '#lesson-03', tags: ['Basic', 'Material'] },
-  { number: 4, title: 'Lighting', description: 'Master light sources and shadows', path: '#lesson-04', tags: ['Basic', 'Lighting'] },
-  { number: 5, title: 'Animation', description: 'Learn animation basics', path: '#lesson-05', tags: ['Intermediate', 'Animation'] },
-  { number: 6, title: 'Controls', description: 'Interactive camera controls', path: '#lesson-06', tags: ['Intermediate', 'Controls'] },
-  { number: 7, title: 'Particles', description: 'Particle system basics', path: '#lesson-07', tags: ['Intermediate', 'Particles'] },
-  { number: 8, title: 'Physics', description: 'Basic physics simulation', path: '#lesson-08', tags: ['Intermediate', 'Physics'] },
-  { number: 9, title: 'Post Processing', description: 'Visual effects and post-processing', path: '#lesson-09', tags: ['Advanced', 'Effects'] },
-  { number: 10, title: 'Model Loading', description: 'Import 3D models', path: '#lesson-10', tags: ['Advanced', 'Models'] },
-  { number: 11, title: 'Audio & Video', description: 'Integrate audio and video', path: '#lesson-11', tags: ['Advanced', 'Media'] },
-  { number: 12, title: 'Performance', description: 'Optimization techniques', path: '#lesson-12', tags: ['Advanced', 'Performance'] },
-  { number: 13, title: 'Shaders', description: 'Custom shader programming', path: '#lesson-13', tags: ['Expert', 'Shaders'] },
-  { number: 14, title: 'VR & AR', description: 'Virtual and augmented reality', path: '#lesson-14', tags: ['Expert', 'VR/AR'] },
-  { number: 15, title: 'Terrain & Skybox', description: 'Terrain generation and sky', path: '#lesson-15', tags: ['Expert', 'Environment'] },
-  { number: 16, title: 'WebGPU', description: 'Next-gen graphics API', path: '#lesson-16', tags: ['Expert', 'WebGPU'] },
-  { number: 17, title: 'Responsive Design', description: 'Multi-platform适配', path: '#lesson-17', tags: ['Expert', 'Responsive'] },
-  { number: 18, title: 'Final Project', description: 'Build a complete 3D app', path: '#lesson-18', tags: ['Project', 'Final'] },
+  { number: 1, title: 'Hello Three.js', description: 'Scene, Camera, and Renderer basics', path: '#lesson-01', tags: ['Basic', 'Scene'] },
+  { number: 2, title: 'Geometry Lab', description: 'Explore all built-in 3D shapes', path: '#lesson-02', tags: ['Basic', 'Geometry'] },
+  { number: 3, title: 'Basic Paint', description: 'Materials and colors', path: '#lesson-03', tags: ['Basic', 'Material'] },
+  { number: 4, title: 'Let There Be Light', description: 'Master lights and shadows', path: '#lesson-04', tags: ['Basic', 'Lighting'] },
+  { number: 5, title: 'The Flow of Time', description: 'Animation loops and Clock', path: '#lesson-05', tags: ['Intermediate', 'Animation'] },
+  { number: 6, title: 'Camera & Response', description: 'OrbitControls and Resize', path: '#lesson-06', tags: ['Intermediate', 'Controls'] },
+  { number: 7, title: 'Family Tree', description: 'Scene Graph and Hierarchy', path: '#lesson-07', tags: ['Intermediate', 'Hierarchy'] },
+  { number: 8, title: 'Interaction (Raycaster)', description: 'Mouse picking and hovering', path: '#lesson-08', tags: ['Intermediate', 'Interaction'] },
+  { number: 9, title: 'Realistic Surface (PBR)', description: 'Advanced PBR textures', path: '#lesson-09', tags: ['Advanced', 'Textures'] },
+  { number: 10, title: 'Reflection & Skybox', description: 'Environment maps and reflections', path: '#lesson-10', tags: ['Advanced', 'Environment'] },
+  { number: 11, title: 'Atmospheric Fog', description: 'Exponential fog and depth', path: '#lesson-11', tags: ['Intermediate', 'Effects'] },
+  { number: 12, title: 'BufferGeometry (Vertices)', description: 'Low-level vertex manipulation', path: '#lesson-12', tags: ['Expert', 'Geometry'] },
+  { number: 13, title: 'Model Shop (GLTF)', description: 'Importing 3D models', path: '#lesson-13', tags: ['Advanced', 'Models'] },
+  { number: 14, title: 'Media Textures', description: 'Audio and Video integration', path: '#lesson-14', tags: ['Advanced', 'Media'] },
+  { number: 15, title: 'Physics World', description: 'Collisions and gravity', path: '#lesson-15', tags: ['Intermediate', 'Physics'] },
+  { number: 16, title: 'Post-Processing', description: 'Visual filters and effects', path: '#lesson-16', tags: ['Advanced', 'Effects'] },
+  { number: 17, title: 'Pixel Sorcery (Shaders)', description: 'Custom GLSL shaders', path: '#lesson-17', tags: ['Expert', 'Shaders'] },
+  { number: 18, title: 'High Performance', description: 'Instancing and optimization', path: '#lesson-18', tags: ['Advanced', 'Performance'] },
+  { number: 19, title: 'Next Dimension (XR)', description: 'Virtual and Augmented Reality', path: '#lesson-19', tags: ['Expert', 'XR'] },
+  { number: 20, title: 'WebGPU Future', description: 'Next-gen graphics API', path: '#lesson-20', tags: ['Expert', 'WebGPU'] },
+  { number: 21, title: 'The Grand Finale', description: 'Complete 3D Application', path: '#lesson-21', tags: ['Project', 'Final'] },
 ]
 
 function Home() {
   const getDifficulty = (tags) => {
-    if (!tags) return 'basic'
     if (tags.includes('Basic')) return 'basic'
     if (tags.includes('Intermediate')) return 'intermediate'
     if (tags.includes('Advanced')) return 'advanced'
@@ -37,15 +39,15 @@ function Home() {
     <div className="home">
       <section className="hero">
         <h1>ThreeBodyPlay 🚀</h1>
-        <p>Learn Three.js through interactive examples</p>
+        <p>Systematic Three.js Learning Journey</p>
         <div className="hero-stats">
           <div className="stat">
-            <span className="stat-value">18</span>
-            <span className="stat-label">Lessons</span>
+            <span className="stat-value">21</span>
+            <span className="stat-label">Core Lessons</span>
           </div>
           <div className="stat">
             <span className="stat-value">100%</span>
-            <span className="stat-label">Interactive</span>
+            <span className="stat-label">Refined</span>
           </div>
           <div className="stat">
             <span className="stat-value">∞</span>
@@ -55,7 +57,7 @@ function Home() {
       </section>
       
       <section className="lessons-section" id="lessons">
-        <h2>Start Learning</h2>
+        <h2>Curriculum</h2>
         <div className="lessons-grid">
           {lessons.map(lesson => (
             <LessonCard 

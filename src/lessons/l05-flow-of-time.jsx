@@ -27,13 +27,14 @@ function AnimationLesson() {
       pointLight.position.set(5, 5, 5);
       scene.add(pointLight);
     },
-    onAnimate: () => {
+    onAnimate: ({ clock }) => {
+      const time = clock.getElapsedTime();
       if (meshRef.current) {
         meshRef.current.rotation.x += rotationSpeed;
         meshRef.current.rotation.y += rotationSpeed;
         
         if (bounce) {
-          meshRef.current.position.y = Math.sin(Date.now() * 0.003) * 0.5;
+          meshRef.current.position.y = Math.sin(time * 3) * 0.5;
         } else {
           meshRef.current.position.y = 0;
         }

@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
+import * as THREE from 'three';
 import { useThree } from '../hooks/useThree';
 import { LessonLayout, ControlPanel, ControlGroup } from '../components/LessonLayout';
 
-function DirectThree() {
+function BasicScene() {
   const [bgColor, setBgColor] = useState('#1a1a2e');
   const [cubeColor, setCubeColor] = useState('#4ecdc4');
   const [autoRotate, setAutoRotate] = useState(true);
   
   const cubeRef = useRef(null);
   
-  const { containerRef, canvasRef, isReady } = useThree({
-    onInit: ({ THREE, scene }) => {
+  const { containerRef, canvasRef, isReady, scene } = useThree({
+    onInit: ({ scene }) => {
       scene.background = new THREE.Color(bgColor);
       
       const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -19,10 +20,11 @@ function DirectThree() {
       cubeRef.current = cube;
       scene.add(cube);
       
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      // Boosted lights for modern Three.js
+      const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
       scene.add(ambientLight);
       
-      const pointLight = new THREE.PointLight(0xffffff, 1);
+      const pointLight = new THREE.PointLight(0xffffff, 10);
       pointLight.position.set(5, 5, 5);
       scene.add(pointLight);
     },
@@ -35,28 +37,35 @@ function DirectThree() {
   });
 
   useEffect(() => {
+    if (scene) {
+      scene.background = new THREE.Color(bgColor);
+    }
+  }, [bgColor, scene]);
+
+  useEffect(() => {
     if (cubeRef.current) {
       cubeRef.current.material.color.set(cubeColor);
     }
   }, [cubeColor]);
 
-  useEffect(() => {
-    // Note: scene is available via useThree, but for simplicity in this lesson 
-    // we can also just use window.THREE if needed, though better to pass it.
-    // In our hook, scene is a ref or stable object.
-  }, [bgColor]);
+  const codeSnippet = `// 1. Create Scene
+const scene = new THREE.Scene();
+scene.background = new THREE.Color('${bgColor}');
 
-  const codeSnippet = `// Scene setup with useThree hook
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshStandardMaterial({ color: '${cubeColor}' })
-const cube = new THREE.Mesh(geometry, material)
-scene.add(cube)
+// 2. Setup Camera
+const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
+camera.position.z = 5;
 
-// Animation
-if (autoRotate) {
-  cube.rotation.x += 0.01
-  cube.rotation.y += 0.01
-}`;
+// 3. Add Object
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshStandardMaterial({ color: '${cubeColor}' })
+);
+scene.add(cube);
+
+// 4. Lights
+scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+scene.add(new THREE.PointLight(0xffffff, 10));`;
 
   return (
     <LessonLayout
@@ -68,31 +77,15 @@ if (autoRotate) {
         <>
           <ControlPanel title="Scene">
             <ControlGroup label="Background">
-              <input 
-                type="color" 
-                value={bgColor} 
-                onChange={(e) => setBgColor(e.target.value)} 
-              />
+              <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} />
             </ControlGroup>
           </ControlPanel>
-          
           <ControlPanel title="Cube">
             <ControlGroup label="Color">
-              <input 
-                type="color" 
-                value={cubeColor} 
-                onChange={(e) => setCubeColor(e.target.value)} 
-              />
+              <input type="color" value={cubeColor} onChange={(e) => setCubeColor(e.target.value)} />
             </ControlGroup>
-          </ControlPanel>
-          
-          <ControlPanel title="Controls">
             <ControlGroup label="Auto Rotate">
-              <input 
-                type="checkbox" 
-                checked={autoRotate}
-                onChange={(e) => setAutoRotate(e.target.checked)}
-              />
+              <input type="checkbox" checked={autoRotate} onChange={(e) => setAutoRotate(e.target.checked)} />
             </ControlGroup>
           </ControlPanel>
         </>
@@ -101,4 +94,4 @@ if (autoRotate) {
   );
 }
 
-export default DirectThree;
+export default BasicScene;

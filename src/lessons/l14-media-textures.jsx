@@ -98,11 +98,16 @@ function AudioVideoLesson() {
     if (particlesRef.current) particlesRef.current.material.color.set(color);
   }, [color]);
 
-  const codeSnippet = `const analyser = audioContext.createAnalyser()
-// In animation loop:
+  const codeSnippet = `// 1. Audio Visualization
+const analyser = audioContext.createAnalyser()
 analyser.getByteFrequencyData(dataArray)
 const level = average(dataArray) / 255
-mesh.scale.setScalar(1 + level * 2)`;
+mesh.scale.setScalar(1 + level * 2)
+
+// 2. Video Texture (Alternative)
+const video = document.getElementById('video')
+const videoTexture = new THREE.VideoTexture(video)
+const material = new THREE.MeshBasicMaterial({ map: videoTexture })`;
 
   return (
     <LessonLayout

@@ -64,14 +64,35 @@ function ShadersLesson() {
     }
   }, [color1, color2]);
 
-  const codeSnippet = `const material = new THREE.ShaderMaterial({
+  const codeSnippet = `// 1. Vertex Shader (Passes position to Fragment)
+const vertexShader = \`
+  varying vec3 vPosition;
+  void main() {
+    vPosition = position;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+\`;
+
+// 2. Fragment Shader (The Visual Magic)
+const fragmentShader = \`
+  uniform float uTime;
+  uniform vec3 uColor1;
+  void main() {
+    // Dynamic color mixing based on Y and Time
+    float wave = sin(vPosition.y * 3.0 + uTime) * 0.5 + 0.5;
+    gl_FragColor = vec4(mix(uColor1, vec3(1.0), wave), 1.0);
+  }
+\`;
+
+// 3. Material
+const material = new THREE.ShaderMaterial({
   uniforms: {
     uTime: { value: 0 },
     uColor1: { value: new THREE.Color('${color1}') }
   },
-  vertexShader: \`...\`,
-  fragmentShader: \`...\`
-})`;
+  vertexShader,
+  fragmentShader
+});`;
 
   return (
     <LessonLayout

@@ -15,23 +15,46 @@ function PhysicsLesson() {
   const BALL_RADIUS = 0.5;
 
   const { containerRef, canvasRef, isReady, scene } = useThree({
-    onInit: ({ scene, camera }) => {
-      scene.background = new THREE.Color(0x1a1a2e);
-      camera.position.set(0, 2, 12);
+    onInit: ({ scene, camera, renderer }) => {
+      scene.background = new THREE.Color(0x050508);
+      camera.position.set(0, 4, 12);
       camera.lookAt(0, 0, 0);
 
-      const groundGeo = new THREE.PlaneGeometry(20, 20);
-      const groundMat = new THREE.MeshStandardMaterial({ color: 0x333333 });
+      // 1. Better Ground: Metallic with Grid
+      const groundGroup = new THREE.Group();
+      const groundGeo = new THREE.PlaneGeometry(30, 30);
+      const groundMat = new THREE.MeshStandardMaterial({ 
+        color: 0x111111,
+        metalness: 0.8,
+        roughness: 0.2
+      });
       const ground = new THREE.Mesh(groundGeo, groundMat);
       ground.rotation.x = -Math.PI / 2;
       ground.position.y = GROUND_Y;
       ground.receiveShadow = true;
-      scene.add(ground);
+      groundGroup.add(ground);
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-      const pointLight = new THREE.PointLight(0xffffff, 1);
-      pointLight.position.set(5, 5, 5);
-      scene.add(pointLight);
+      const grid = new THREE.GridHelper(30, 30, 0x4ecdc4, 0x222222);
+      grid.position.y = GROUND_Y + 0.01;
+      groundGroup.add(grid);
+      scene.add(groundGroup);
+
+      // 2. Enhanced Lighting
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+      scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+      
+      const mainLight = new THREE.DirectionalLight(0xffffff, 3);
+      mainLight.position.set(5, 10, 7);
+      mainLight.castShadow = true;
+      mainLight.shadow.mapSize.width = 1024;
+      mainLight.shadow.mapSize.height = 1024;
+      scene.add(mainLight);
+
+      const fillLight = new THREE.PointLight(0xff6b6b, 10);
+      fillLight.position.set(-5, 2, 2);
+      scene.add(fillLight);
 
       resetBalls(scene);
     },
@@ -95,13 +118,16 @@ function PhysicsLesson() {
     });
   }, [ballColor]);
 
-  const codeSnippet = `// Physics loop
-velocity -= gravity
-ball.position.y += velocity
+  const codeSnippet = `// 1. Gravity & Velocity
+velocity -= gravity; // Accelerated fall
+ball.position.y += velocity;
 
-if (ball.position.y <= groundY) {
-  ball.position.y = groundY
-  velocity = -velocity * bounciness
+// 2. Collision with Floor
+const floorY = ${GROUND_Y} + radius;
+if (ball.position.y <= floorY) {
+  ball.position.y = floorY;
+  // Reverse velocity with energy loss (bounciness)
+  velocity = -velocity * ${bounciness}; 
 }`;
 
   return (

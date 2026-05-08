@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Header() {
+function Header({ nextLesson }) {
   const base = '/ThreeBodyPlay'
   
   return (
@@ -11,7 +11,13 @@ function Header() {
       </div>
       <nav className="nav-links">
         <a href={`${base}/`}>Home</a>
-        <a href={`${base}/#lessons`}>All Lessons</a>
+        {nextLesson ? (
+          <a href={`${base}/#${nextLesson.id}`} className="next-lesson-link">
+            Next: {nextLesson.title}
+          </a>
+        ) : (
+          <a href={`${base}/#lessons`}>All Lessons</a>
+        )}
         <a href="https://threejs.org" target="_blank" rel="noopener">Three.js</a>
       </nav>
     </header>

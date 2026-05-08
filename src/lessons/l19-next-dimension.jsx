@@ -12,14 +12,14 @@ function VrArLesson() {
   const { containerRef, canvasRef, isReady } = useThree({
     onInit: ({ scene, camera, renderer }) => {
       scene.background = new THREE.Color(0x1a1a2e);
-      camera.position.z = 6;
+      camera.position.z = 7;
 
       // Check VR support
       if ('xr' in navigator) {
         navigator.xr.isSessionSupported('immersive-vr').then(setVrSupported);
       }
 
-      const cubeSize = 0.6, gridSize = 3, spacing = 1.5;
+      const cubeSize = 0.6, gridSize = 3, spacing = 2.0;
       const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
 
       for (let x = 0; x < gridSize; x++) {
@@ -27,20 +27,21 @@ function VrArLesson() {
           for (let z = 0; z < gridSize; z++) {
             const material = new THREE.MeshStandardMaterial({
               color: new THREE.Color().setHSL((x + y + z) / 9 * 0.3 + 0.5, 0.7, 0.5),
-              metalness: 0.5, roughness: 0.3
+              metalness: 0.8, roughness: 0.1
             });
             const cube = new THREE.Mesh(geometry, material);
             cube.position.set((x - 1) * spacing, (y - 1) * spacing, (z - 1) * spacing);
-            cube.userData = { basePos: cube.position.clone(), phase: (x + y * 3 + z * 9) * 0.3 };
+            cube.userData = { basePos: cube.position.clone(), phase: (x + y * 3 + z * 9) * 0.4 };
             scene.add(cube);
             cubesRef.current.push(cube);
           }
         }
       }
 
-      scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-      const p1 = new THREE.PointLight(0x4ecdc4, 1, 20); p1.position.set(5, 5, 5); scene.add(p1);
-      const p2 = new THREE.PointLight(0xff6b6b, 0.8, 20); p2.position.set(-5, 3, -5); scene.add(p2);
+      // VIBRANT LIGHTING
+      scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+      const p1 = new THREE.PointLight(0x00ffff, 80, 30); p1.position.set(10, 10, 10); scene.add(p1);
+      const p2 = new THREE.PointLight(0xff00ff, 60, 30); p2.position.set(-10, 5, -10); scene.add(p2);
     },
     onAnimate: () => {
       const time = Date.now() * 0.001;
@@ -49,14 +50,38 @@ function VrArLesson() {
           cube.rotation.x += 0.01;
           cube.rotation.y += 0.01;
         }
-        cube.position.y = cube.userData.basePos.y + Math.sin(time + cube.userData.phase) * 0.2;
+        cube.position.y = cube.userData.basePos.y + Math.sin(time + cube.userData.phase) * 0.4;
       });
     }
   });
 
-  const codeSnippet = `renderer.xr.enabled = true;
-// In VR, Three.js uses setAnimationLoop instead of requestAnimationFrame
-renderer.setAnimationLoop(animate);`;
+  const codeSnippet = `// 1. Create Cube Grid
+const gridSize = 3;
+const spacing = 2.0;
+const geometry = new THREE.BoxGeometry(0.6, 0.6, 0.6);
+
+for (let x = 0; x < gridSize; x++) {
+  for (let y = 0; y < gridSize; y++) {
+    for (let z = 0; z < gridSize; z++) {
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(
+        (x - 1) * spacing, 
+        (y - 1) * spacing, 
+        (z - 1) * spacing
+      );
+      scene.add(mesh);
+    }
+  }
+}
+
+// 2. Enable WebXR
+renderer.xr.enabled = true;
+
+// 3. XR Animation Loop
+renderer.setAnimationLoop((time) => {
+  // Update animations here
+  renderer.render(scene, camera);
+});`;
 
   return (
     <LessonLayout
