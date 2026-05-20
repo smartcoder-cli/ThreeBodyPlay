@@ -1,9 +1,13 @@
 import React from 'react'
 
-function LessonCard({ lesson, difficulty = 'basic' }) {
+function LessonCard({ lesson, difficulty = 'basic', visited = false }) {
   return (
-    <div className={`lesson-card difficulty-${difficulty}`}>
+    <a
+      href={lesson.path}
+      className={`lesson-card difficulty-${difficulty}${visited ? ' visited' : ''}`}
+    >
       <div className="card-left-bar"></div>
+      {visited && <span className="visited-badge">✓ DONE</span>}
       <div className="card-inner">
         <div className="lesson-number">
           Lesson {String(lesson.number).padStart(2, '0')}
@@ -15,9 +19,9 @@ function LessonCard({ lesson, difficulty = 'basic' }) {
             <span key={i} className={`tag tag-${tag.toLowerCase().replace(/ /g, '-')}`}>{tag}</span>
           ))}
         </div>
-        <a href={lesson.path} className="lesson-link">START →</a>
+        <span className="lesson-link">START →</span>
       </div>
-    </div>
+    </a>
   )
 }
 

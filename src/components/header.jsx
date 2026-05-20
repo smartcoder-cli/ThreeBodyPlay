@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Header({ nextLesson }) {
+function Header({ nextLesson, prevLesson }) {
   const base = '/ThreeBodyPlay'
-  
+
   return (
     <header className="header">
       <div className="header-left">
@@ -11,9 +11,14 @@ function Header({ nextLesson }) {
       </div>
       <nav className="nav-links">
         <a href={`${base}/`}>Home</a>
+        {prevLesson && (
+          <a href={`${base}/#${prevLesson.id}`} className="prev-lesson-link">
+            ← {prevLesson.title}
+          </a>
+        )}
         {nextLesson ? (
           <a href={`${base}/#${nextLesson.id}`} className="next-lesson-link">
-            Next: {nextLesson.title}
+            {nextLesson.title} →
           </a>
         ) : (
           <a href={`${base}/#lessons`}>All Lessons</a>
